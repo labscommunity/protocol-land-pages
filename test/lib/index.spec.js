@@ -11,7 +11,7 @@ describe('index', () => {
 
       const expected = path.join(
         '.cache',
-        'gh-pages',
+        'pl-pages',
         'git@github.com!example-user!example-project.git'
       );
       assert(dir.endsWith(expected), `unexpected cache dir: ${dir}`);
@@ -24,7 +24,7 @@ describe('index', () => {
 
       const expected = path.join(
         '.cache',
-        'gh-pages',
+        'pl-pages',
         'https!github.com!example-user!example-project.git'
       );
       assert(dir.endsWith(expected), `unexpected cache dir: ${dir}`);
@@ -37,7 +37,7 @@ describe('index', () => {
 
       const expected = path.join(
         '.cache',
-        'gh-pages',
+        'pl-pages',
         'https!user!pass@github.com!example-user!example-project.git'
       );
       assert(dir.endsWith(expected), `unexpected cache dir: ${dir}`);

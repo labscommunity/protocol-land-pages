@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-const ghpages = require('../lib/index.js');
+const plpages = require('../lib/index.js');
 
 function main() {
-  ghpages.clean();
+  plpages.clean();
 }
 
 if (require.main === module) {

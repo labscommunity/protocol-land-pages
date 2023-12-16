@@ -1,19 +1,19 @@
 const helper = require('../helper.js');
-const ghPages = require('../../lib/index.js');
+const plPages = require('../../lib/index.js');
 const path = require('path');
 
 const fixtures = path.join(__dirname, 'fixtures');
 const fixtureName = 'basic';
 
 beforeEach(() => {
-  ghPages.clean();
+  plPages.clean();
 });
 
 describe('basic usage', () => {
-  it('pushes the contents of a directory to a gh-pages branch', (done) => {
+  it('pushes the contents of a directory to a pl-pages branch', (done) => {
     const local = path.join(fixtures, fixtureName, 'local');
     const expected = path.join(fixtures, fixtureName, 'expected');
-    const branch = 'gh-pages';
+    const branch = 'pl-pages';
 
     helper.setupRemote(fixtureName, {branch}).then((url) => {
       const options = {
@@ -23,7 +23,7 @@ describe('basic usage', () => {
           email: 'user@email.com',
         },
       };
-      ghPages.publish(local, options, (err) => {
+      plPages.publish(local, options, (err) => {
         if (err) {
           return done(err);
         }
@@ -48,7 +48,7 @@ describe('basic usage', () => {
           email: 'user@email.com',
         },
       };
-      ghPages.publish(local, options, (err) => {
+      plPages.publish(local, options, (err) => {
         if (err) {
           return done(err);
         }

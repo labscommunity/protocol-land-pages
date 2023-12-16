@@ -40,7 +40,7 @@ function mkdtemp() {
  * @return {Promise<string>} A promise for the path to the repo.
  */
 function setupRepo(fixtureName, options) {
-  const branch = options.branch || 'gh-pages';
+  const branch = options.branch || 'pl-pages';
   const userEmail = (options.user && options.user.email) || 'user@email.com';
   const userName = (options.user && options.user.name) || 'User Name';
   return mkdtemp()
@@ -64,7 +64,7 @@ function setupRepo(fixtureName, options) {
  * @return {Promise} A promise.
  */
 function setupRemote(fixtureName, options) {
-  const branch = options.branch || 'gh-pages';
+  const branch = options.branch || 'pl-pages';
   return setupRepo(fixtureName, options).then((dir) =>
     mkdtemp()
       .then((remote) => {

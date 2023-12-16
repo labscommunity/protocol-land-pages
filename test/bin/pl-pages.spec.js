@@ -1,26 +1,26 @@
-const ghpages = require('../../lib/index.js');
+const plpages = require('../../lib/index.js');
 const sinon = require('sinon');
-const cli = require('../../bin/gh-pages.js');
+const cli = require('../../bin/pl-pages.js');
 const assert = require('../helper.js').assert;
 const beforeAdd = require('./fixtures/beforeAdd.js');
 
-describe('gh-pages', () => {
+describe('pl-pages', () => {
   describe('main', () => {
     beforeEach(() => {
       sinon
-        .stub(ghpages, 'publish')
+        .stub(plpages, 'publish')
         .callsFake((basePath, config, callback) => callback());
     });
 
     afterEach(() => {
-      ghpages.publish.restore();
+      plpages.publish.restore();
     });
 
     const scenarios = [
       {
         args: ['--dist', 'lib'],
         dist: 'lib',
-        config: ghpages.defaults,
+        config: plpages.defaults,
       },
       {
         args: ['--dist', 'lib', '-n'],
@@ -41,11 +41,6 @@ describe('gh-pages', () => {
         args: ['--dist', 'lib', '--dotfiles'],
         dist: 'lib',
         config: {dotfiles: true},
-      },
-      {
-        args: ['--dist', 'lib', '--nojekyll'],
-        dist: 'lib',
-        config: {nojekyll: true},
       },
       {
         args: ['--dist', 'lib', '--dest', 'target'],
@@ -102,7 +97,7 @@ describe('gh-pages', () => {
       }
       it(title, async () => {
         try {
-          await cli(['node', 'gh-pages'].concat(args));
+          await cli(['node', 'pl-pages'].concat(args));
         } catch (err) {
           if (!error) {
             throw err;
@@ -115,7 +110,7 @@ describe('gh-pages', () => {
           throw new Error(`Expected error "${error}" but got success`);
         }
 
-        sinon.assert.calledWithMatch(ghpages.publish, dist, config);
+        sinon.assert.calledWithMatch(plpages.publish, dist, config);
       });
     });
   });

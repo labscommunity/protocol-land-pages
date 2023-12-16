@@ -1,19 +1,19 @@
 const helper = require('../helper.js');
-const ghPages = require('../../lib/index.js');
+const plPages = require('../../lib/index.js');
 const path = require('path');
 
 const fixtures = path.join(__dirname, 'fixtures');
 const fixtureName = 'include';
 
 beforeEach(() => {
-  ghPages.clean();
+  plPages.clean();
 });
 
 describe('the src option', () => {
   it('can be used to limit which files are included', (done) => {
     const local = path.join(fixtures, fixtureName, 'local');
     const expected = path.join(fixtures, fixtureName, 'expected');
-    const branch = 'gh-pages';
+    const branch = 'pl-pages';
 
     helper.setupRemote(fixtureName, {branch}).then((url) => {
       const options = {
@@ -25,7 +25,7 @@ describe('the src option', () => {
         },
       };
 
-      ghPages.publish(local, options, (err) => {
+      plPages.publish(local, options, (err) => {
         if (err) {
           return done(err);
         }

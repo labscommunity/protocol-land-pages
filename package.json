@@ -1,24 +1,21 @@
 {
-  "name": "gh-pages",
-  "version": "6.1.0",
-  "description": "Publish to a gh-pages branch on GitHub (or any other branch on any other remote)",
+  "name": "pl-pages",
+  "version": "0.0.0",
+  "description": "Publish to a pl-pages or any other branch on Protocol Land",
   "keywords": [
     "git",
-    "gh-pages",
+    "pl-pages",
     "github"
   ],
-  "author": {
-    "name": "Tim Schaub",
-    "url": "http://tschaub.net/"
-  },
+  "author": "pawanpaudel93",
   "license": "MIT",
-  "homepage": "https://github.com/tschaub/gh-pages",
+  "homepage": "https://github.com/pawanpaudel93/pl-pages",
   "repository": {
     "type": "git",
-    "url": "git://github.com/tschaub/gh-pages.git"
+    "url": "git://github.com/pawanpaudel93/pl-pages.git"
   },
   "bugs": {
-    "url": "https://github.com/tschaub/gh-pages/issues"
+    "url": "https://github.com/pawanpaudel93/pl-pages/issues"
   },
   "main": "lib/index.js",
   "scripts": {
@@ -52,8 +49,8 @@
     "tmp": "^0.2.1"
   },
   "bin": {
-    "gh-pages": "bin/gh-pages.js",
-    "gh-pages-clean": "bin/gh-pages-clean.js"
+    "pl-pages": "bin/pl-pages.js",
+    "pl-pages-clean": "bin/pl-pages-clean.js"
   },
   "eslintConfig": {
     "extends": "tschaub",

@@ -1,19 +1,19 @@
 const helper = require('../helper.js');
-const ghPages = require('../../lib/index.js');
+const plPages = require('../../lib/index.js');
 const path = require('path');
 
 const fixtures = path.join(__dirname, 'fixtures');
 const fixtureName = 'dest';
 
 beforeEach(() => {
-  ghPages.clean();
+  plPages.clean();
 });
 
 describe('the dest option', () => {
   it('allows publishing to a subdirectory within a branch', (done) => {
     const local = path.join(fixtures, fixtureName, 'local');
     const expected = path.join(fixtures, fixtureName, 'expected');
-    const branch = 'gh-pages';
+    const branch = 'pl-pages';
     const dest = 'target';
 
     helper.setupRemote(fixtureName, {branch}).then((url) => {
@@ -26,7 +26,7 @@ describe('the dest option', () => {
         },
       };
 
-      ghPages.publish(local, options, (err) => {
+      plPages.publish(local, options, (err) => {
         if (err) {
           return done(err);
         }

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const ghpages = require('../lib/index.js');
+const plpages = require('../lib/index.js');
 const {Command} = require('commander');
 const path = require('path');
 const pkg = require('../package.json');
@@ -9,7 +9,7 @@ const addr = require('email-addresses');
 function publish(dist, config) {
   return new Promise((resolve, reject) => {
     const basePath = path.resolve(process.cwd(), dist);
-    ghpages.publish(basePath, config, (err) => {
+    plpages.publish(basePath, config, (err) => {
       if (err) {
         return reject(err);
       }
@@ -29,39 +29,34 @@ function main(args) {
       .option(
         '-s, --src <src>',
         'Pattern used to select which files to publish',
-        ghpages.defaults.src
+        plpages.defaults.src
       )
       .option(
         '-b, --branch <branch>',
         'Name of the branch you are pushing to',
-        ghpages.defaults.branch
+        plpages.defaults.branch
       )
       .option(
         '-e, --dest <dest>',
         'Target directory within the destination branch (relative to the root)',
-        ghpages.defaults.dest
+        plpages.defaults.dest
       )
       .option('-a, --add', 'Only add, and never remove existing files')
       .option('-x, --silent', 'Do not output the repository url')
       .option(
         '-m, --message <message>',
         'commit message',
-        ghpages.defaults.message
+        plpages.defaults.message
       )
       .option('-g, --tag <tag>', 'add tag to commit')
-      .option('--git <git>', 'Path to git executable', ghpages.defaults.git)
+      .option('--git <git>', 'Path to git executable', plpages.defaults.git)
       .option('-t, --dotfiles', 'Include dotfiles')
-      .option('--nojekyll', 'Add a .nojekyll file to disable Jekyll')
-      .option(
-        '--cname <CNAME>',
-        'Add a CNAME file with the name of your custom domain'
-      )
       .option('-r, --repo <repo>', 'URL of the repository you are pushing to')
-      .option('-p, --depth <depth>', 'depth for clone', ghpages.defaults.depth)
+      .option('-p, --depth <depth>', 'depth for clone', plpages.defaults.depth)
       .option(
         '-o, --remote <name>',
         'The name of the remote',
-        ghpages.defaults.remote
+        plpages.defaults.remote
       )
       .option(
         '-u, --user <address>',
@@ -71,7 +66,7 @@ function main(args) {
         '-v, --remove <pattern>',
         'Remove files that match the given pattern ' +
           '(ignored if used together with --add).',
-        ghpages.defaults.remove
+        plpages.defaults.remove
       )
       .option('-n, --no-push', 'Commit only (with no push)')
       .option(
@@ -126,7 +121,6 @@ function main(args) {
       git: options.git,
       depth: options.depth,
       dotfiles: !!options.dotfiles,
-      nojekyll: !!options.nojekyll,
       add: !!options.add,
       remove: options.remove,
       remote: options.remote,

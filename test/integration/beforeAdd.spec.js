@@ -1,19 +1,19 @@
 const helper = require('../helper.js');
-const ghPages = require('../../lib/index.js');
+const plPages = require('../../lib/index.js');
 const path = require('path');
 
 const fixtures = path.join(__dirname, 'fixtures');
 const fixtureName = 'beforeAdd';
 
 beforeEach(() => {
-  ghPages.clean();
+  plPages.clean();
 });
 
 describe('the beforeAdd option', () => {
   it('runs a provided async function before adding files', (done) => {
     const local = path.join(fixtures, fixtureName, 'local');
     const expected = path.join(fixtures, fixtureName, 'expected');
-    const branch = 'gh-pages';
+    const branch = 'pl-pages';
 
     helper.setupRemote(fixtureName, {branch}).then((url) => {
       const options = {
@@ -29,7 +29,7 @@ describe('the beforeAdd option', () => {
           email: 'user@email.com',
         },
       };
-      ghPages.publish(local, options, (err) => {
+      plPages.publish(local, options, (err) => {
         if (err) {
           return done(err);
         }
