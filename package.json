@@ -48,7 +48,9 @@
     "dir-compare": "^4.0.0",
     "eslint": "^8.32.0",
     "eslint-config-tschaub": "^14.1.2",
+    "eslint-plugin-prettier": "^5.0.1",
     "mocha": "^10.2.0",
+    "prettier": "^3.1.1",
     "sinon": "^17.0.1",
     "tmp": "^0.2.1"
   },

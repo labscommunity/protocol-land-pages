@@ -94,9 +94,11 @@ function main(args) {
     }
     let beforeAdd;
     if (options.beforeAdd) {
-      const m = require(require.resolve(options.beforeAdd, {
-        paths: [process.cwd()],
-      }));
+      const m = require(
+        require.resolve(options.beforeAdd, {
+          paths: [process.cwd()],
+        })
+      );
 
       if (typeof m === 'function') {
         beforeAdd = m;
