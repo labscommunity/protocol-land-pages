@@ -139,7 +139,7 @@ function main(args) {
 if (require.main === module) {
   main(process.argv)
     .then(() => {
-      process.stdout.write('Published\n');
+      process.stdout.write('Deployed\n');
     })
     .catch((err) => {
       process.stderr.write(`${err.stack}\n`, () => process.exit(1));
