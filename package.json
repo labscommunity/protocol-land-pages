@@ -21,7 +21,8 @@
   "scripts": {
     "lint": "eslint lib test bin plugin.js",
     "pretest": "npm run lint",
-    "test": "mocha --recursive test"
+    "test": "mocha --recursive test",
+    "release": "changeset publish"
   },
   "files": [
     "lib",
@@ -44,6 +45,7 @@
     "warp-contracts": "^1.4.30"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
     "chai": "^4.3.7",
     "dir-compare": "^4.0.0",
     "eslint": "^8.32.0",
