@@ -1,8 +1,11 @@
-const plpages = require('../../lib/index.js');
-const sinon = require('sinon');
-const cli = require('../../bin/pl-pages.js');
-const assert = require('../helper.js').assert;
-const beforeAdd = require('./fixtures/beforeAdd.js');
+import * as plpages from '../../lib/index.js';
+import beforeAdd from './fixtures/beforeAdd.js';
+import cli from '../../bin/pl-pages.js';
+import sinon from 'sinon';
+import {assert} from '../helper.js';
+import {createRequire} from 'node:module';
+
+const require = createRequire(import.meta.url);
 
 describe('pl-pages', () => {
   describe('main', () => {

@@ -1,8 +1,8 @@
-const helper = require('../helper.js');
-const plPages = require('../../lib/index.js');
-const path = require('path');
+import * as helper from '../helper.js';
+import * as plPages from '../../lib/index.js';
+import path from 'path';
 
-const fixtures = path.join(__dirname, 'fixtures');
+const fixtures = path.join(helper.__dirname, 'fixtures');
 const fixtureName = 'beforeAdd';
 
 beforeEach(() => {

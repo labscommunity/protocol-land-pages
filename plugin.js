@@ -1,6 +1,6 @@
-const plPages = require('./lib/index.js');
-const path = require('path');
+import path from 'path';
+import {publish} from './lib/index.js';
 
-module.exports = function (pluginConfig, config, callback) {
-  plPages.publish(path.join(process.cwd(), config.basePath), config, callback);
-};
+export default function (pluginConfig, config, callback) {
+  publish(path.join(process.cwd(), config.basePath), config, callback);
+}

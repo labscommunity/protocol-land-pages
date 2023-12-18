@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 
-const plpages = require('../lib/index.js');
-const {Command} = require('commander');
-const path = require('path');
-const pkg = require('../package.json');
-const addr = require('email-addresses');
+import * as plpages from '../lib/index.js';
+import addr from 'email-addresses';
+import fs from 'fs-extra';
+import path from 'path';
+import {Command} from 'commander';
+import {createRequire} from 'node:module';
+import {fileURLToPath, pathToFileURL} from 'url';
+
+const require = createRequire(import.meta.url);
 
 function publish(dist, config) {
   return new Promise((resolve, reject) => {
@@ -18,10 +22,20 @@ function publish(dist, config) {
   });
 }
 
-function main(args) {
+export const getVersion = () => {
+  const __filename = fileURLToPath(import.meta.url);
+  const distPath = path.dirname(__filename);
+  const PKG_ROOT = path.join(distPath, '../');
+  const packageJsonPath = path.join(PKG_ROOT, 'package.json');
+  const packageJsonContent = fs.readJSONSync(packageJsonPath);
+  return packageJsonContent.version ?? '1.0.0';
+};
+
+export default async function main(args) {
+  const packageVersion = getVersion();
   return Promise.resolve().then(() => {
     const program = new Command()
-      .version(pkg.version)
+      .version(packageVersion)
       .requiredOption(
         '-d, --dist <dist>',
         'Base directory for all source files'
@@ -136,7 +150,11 @@ function main(args) {
   });
 }
 
-if (require.main === module) {
+if (
+  import.meta.url
+    .replace('pl-pages/bin', '.bin')
+    .includes(pathToFileURL(process.argv[1]).href)
+) {
   main(process.argv)
     .then(() => {
       process.stdout.write('Published\n');
@@ -145,6 +163,3 @@ if (require.main === module) {
       process.stderr.write(`${err.stack}\n`, () => process.exit(1));
     });
 }
-
-module.exports = main;
-exports = module.exports;

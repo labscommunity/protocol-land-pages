@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 
-const plpages = require('../lib/index.js');
+import {clean} from '../lib/index.js';
+import {pathToFileURL} from 'url';
 
-function main() {
-  plpages.clean();
+export default function main() {
+  clean();
 }
 
-if (require.main === module) {
+if (
+  import.meta.url
+    .replace('pl-pages/bin', '.bin')
+    .includes(pathToFileURL(process.argv[1]).href)
+) {
   main();
 }
-
-module.exports = main;

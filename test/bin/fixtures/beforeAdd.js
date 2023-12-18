@@ -1,3 +1,3 @@
-module.exports = function myBeforeAdd() {
+export default function myBeforeAdd() {
   /* noop */
-};
+}

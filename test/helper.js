@@ -1,15 +1,21 @@
-const chai = require('chai');
-const tmp = require('tmp');
-const path = require('path');
-const fs = require('fs-extra');
-const Git = require('../lib/git.js');
-const compare = require('dir-compare').compareSync;
+import Git from '../lib/git.js';
+import chai from 'chai';
+import fs from 'fs-extra';
+import path from 'path';
+import tmp from 'tmp';
+import {EventEmitter} from 'events';
+import {compareSync as compare} from 'dir-compare';
+import {fileURLToPath} from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+
+export const __dirname = path.dirname(__filename);
 
 /**
  * Turn off maxListeners warning during the tests
  * See: https://nodejs.org/docs/latest/api/events.html#events_emitter_setmaxlisteners_n
  */
-require('events').EventEmitter.prototype._maxListeners = 0;
+EventEmitter.prototype._maxListeners = 0;
 
 /** @type {boolean} */
 chai.config.includeStack = true;
@@ -18,7 +24,7 @@ chai.config.includeStack = true;
  * Chai's assert function configured to include stacks on failure.
  * @type {Function}
  */
-exports.assert = chai.assert;
+export const assert = chai.assert;
 
 const fixtures = path.join(__dirname, 'integration', 'fixtures');
 
@@ -39,7 +45,7 @@ function mkdtemp() {
  * @param {object} options Repo options.
  * @return {Promise<string>} A promise for the path to the repo.
  */
-function setupRepo(fixtureName, options) {
+export function setupRepo(fixtureName, options) {
   const branch = options.branch || 'pl-pages';
   const userEmail = (options.user && options.user.email) || 'user@email.com';
   const userName = (options.user && options.user.name) || 'User Name';
@@ -63,7 +69,7 @@ function setupRepo(fixtureName, options) {
  * @param {object} options Repo options.
  * @return {Promise} A promise.
  */
-function setupRemote(fixtureName, options) {
+export function setupRemote(fixtureName, options) {
   const branch = options.branch || 'pl-pages';
   return setupRepo(fixtureName, options).then((dir) =>
     mkdtemp()
@@ -78,7 +84,7 @@ function setupRemote(fixtureName, options) {
   );
 }
 
-function assertContentsMatch(dir, url, branch) {
+export function assertContentsMatch(dir, url, branch) {
   return mkdtemp()
     .then((root) => {
       const clone = path.join(root, 'repo');
@@ -108,7 +114,3 @@ function assertContentsMatch(dir, url, branch) {
       }
     });
 }
-
-exports.setupRepo = setupRepo;
-exports.setupRemote = setupRemote;
-exports.assertContentsMatch = assertContentsMatch;

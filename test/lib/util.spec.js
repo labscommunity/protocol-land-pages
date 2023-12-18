@@ -1,7 +1,7 @@
-const path = require('path');
-const assert = require('../helper.js').assert;
-const util = require('../../lib/util.js');
-const helper = require('../helper.js');
+import * as helper from '../helper.js';
+import * as util from '../../lib/util.js';
+import path from 'path';
+import {assert} from 'chai';
 
 describe('util', () => {
   let files;
