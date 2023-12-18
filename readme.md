@@ -1,7 +1,7 @@
 
 # pl-pages
 
-Publish files to a `pl-pages` branch on GitHub (or any other branch anywhere else).
+Publish files to a `pl-pages` or any other branch on [Protocol Land](http://protocol.land/).
 
 ## Getting Started
 
@@ -9,7 +9,7 @@ Publish files to a `pl-pages` branch on GitHub (or any other branch anywhere els
 npm install pl-pages --save-dev
 ```
 
-This module requires Git >= 1.9 and Node > 14.
+This module requires Git >= 1.9 and Node > 16.
 
 ## Basic Usage
 
@@ -77,7 +77,7 @@ The [minimatch](https://github.com/isaacs/minimatch) pattern or array of pattern
 * default: `'pl-pages'`
 * `-b | --branch <branch name>`
 
-The name of the branch you'll be pushing to.  The default uses GitHub's `pl-pages` branch, but this can be configured to push to any branch on any remote.
+The name of the branch you'll be pushing to. The default uses Protocol Land's `pl-pages` branch, but this can be configured to push to any branch on any remote.
 
 Example use of the `branch` option:
 
@@ -87,7 +87,7 @@ Example use of the `branch` option:
  */
 plpages.publish('dist', {
   branch: 'master',
-  repo: 'https://example.com/other/repo.git'
+  repo: 'proland://6ace6247-d267-463d-b5bd-7e50d98c3693'
 }, callback);
 ```
 
@@ -163,7 +163,7 @@ Example use of the `repo` option:
  * push all files in the `src` config to the `pl-pages` branch of the `repo`.
  */
 plpages.publish('dist', {
-  repo: 'https://example.com/other/repo.git'
+  repo: 'proland://6ace6247-d267-463d-b5bd-7e50d98c3693'
 }, callback);
 ```
 
@@ -278,18 +278,6 @@ plpages.publish('dist', {history: false}, callback);
 
 Avoid showing repository URLs or other information in errors.
 
-Example use of the `silent` option:
-
-```js
-/**
- * This configuration will avoid logging the GH_TOKEN if there is an error.
- */
-plpages.publish('dist', {
-  repo: 'https://' + process.env.GH_TOKEN + '@github.com/user/private-repo.git',
-  silent: true
-}, callback);
-```
-
 #### <a id="optionsbeforeadd">options.beforeAdd</a>
 
 * type: `function`
@@ -355,18 +343,6 @@ And then to publish everything from your `dist` folder to your `pl-pages` branch
 npm run deploy
 ```
 
-## GitHub Pages Project Sites
-
-There are three types of GitHub Pages sites: [project, user, and organization](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#types-of-github-pages-sites). Since project sites are not hosted on the root `<user|org>.github.io` domain and instead under a URL path based on the repository name, they often require configuration tweaks for various build tools and frameworks. If not configured properly, a browser will usually log `net::ERR_ABORTED 404` errors when looking for compiled assets.
-
-Examples:
-* Create React App (which uses webpack under the hood) [requires the user to set a `"homepage"` property in their `package.json` so that built assets are referenced correctly in the final compiled HTML](https://create-react-app.dev/docs/deployment/#building-for-relative-paths).
-  * This [has been often been thought of as an issue with `pl-pages`](https://github.com/tschaub/pl-pages/issues/285#issuecomment-805321474), though this package isn't able to control a project's build configuration.
-* Vite [requires a `"base"` property in its `vite.config.js`](https://vitejs.dev/guide/static-deploy.html#github-pages)
-* Next.js does not support deploying to GitHub Pages [because of an opinionated static export approach that puts all assets under a `_next` direcotry that GitHub Pages ignores](https://github.com/vercel/next.js/issues/9460).
-
-When using a project site, be sure to read the documentation for your particular build tool or framework to learn how to configure correct asset paths.
-
 ## Debugging
 
 To get additional output from the `pl-pages` script, set `NODE_DEBUG=pl-pages`.  For example:
@@ -377,15 +353,13 @@ NODE_DEBUG=pl-pages npm run deploy
 
 ## Dependencies
 
-Note that this plugin requires Git 1.9 or higher (because it uses the `--exit-code` option for `git ls-remote`).  If you'd like to see this working with earlier versions of Git, please [open an issue](https://github.com/tschaub/pl-pages/issues).
-
-![Test Status](https://github.com/tschaub/pl-pages/workflows/Test/badge.svg)
+Note that this plugin requires Git 1.9 or higher (because it uses the `--exit-code` option for `git ls-remote`).
 
 ## Tips
 
 ### when get error `branch already exists`
 
-```
+```shell
 { ProcessError: fatal: A branch named 'pl-pages' already exists.
 
     at ChildProcess.<anonymous> (~/node_modules/pl-pages/lib/git.js:42:16)
@@ -401,42 +375,68 @@ The `pl-pages` module writes temporary files to a `node_modules/.cache/pl-pages`
 
 If `pl-pages` fails, you may find that you need to manually clean up the cache directory.  To remove the cache directory, run `node_modules/pl-pages/bin/pl-pages-clean` or remove `node_modules/.cache/pl-pages`.
 
-### Deploying with GitHub Actions
+## Build And Deployment Notes
 
-In order to deploy with GitHub Actions, you will need to define a user and set the git repository for the process. See the example step below
+> Recommended: Use HashRouter for apps deploying to PL Pages.
 
-```yaml
-- name: Deploy with pl-pages
-  run: |
-    git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-    npx pl-pages -d build -u "github-actions-bot <support+actions@github.com>"
-   env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+To reference the built assets are referenced correctly in the final compiled HTML, please follow this guide for different frameworks and libraries.
+
+### ReactJS
+>
+> Note: Use HashRouter from react-router-dom in React apps.
+
+Set a `"homepage"` property in the `package.json` to `./` or Add this line to the scripts in package.json and build your React project using this script.
+
+```shell
+"dragbuild": "PUBLIC_URL=./ react-scripts build"
 ```
 
-The `secrets.GITHUB_TOKEN` is provided automatically as part of the GitHub Action and does not require any further configuration, but simply needs to be passed in as an environmental variable to the step. `GITHUB_REPOSITORY` is the owner and repository name and is also passed in automatically, but does not need to be added to the `env` list.
+### NextJS (Static Export)
 
-See [Issue #345](https://github.com/tschaub/pl-pages/issues/345) for more information
+Learn about it [here](https://nextjs.org/docs/pages/building-your-application/deploying/static-exports) for the supported and unsupported features in static HTML export.
 
-#### Deploying with GitHub Actions and a named script
+If you are having problems regarding images in Next.js HTML export, see [here](https://stackoverflow.com/questions/65487914/error-image-optimization-using-next-js-default-loader-is-not-compatible-with-n).
 
-If you are using a named script in the `package.json` file to deploy, you will need to ensure you pass the variables properly to the wrapped `pl-pages` script. Given the `package.json` script below:
+Add the configuration to next.config.js and build the project to get an `out` folder which contains the HTML/CSS/JS assets for your application.
 
-```json
-"scripts": {
-  "deploy": "pl-pages -d build"
+```js
+/**
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = {
+  output: 'export',
+  assetPrefix: "./",
 }
+
+module.exports = nextConfig
 ```
 
-You will need to utilize the `--` option to pass any additional arguments:
+### VueJS
 
-```yaml
-- name: Deploy with pl-pages
-  run: |
-    git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-    npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+Modify `vue.config.js` to include the following config and build your Vue project as you normally would:
+
+```js
+publicPath: "./"
 ```
 
-See [Pull Request #368](https://github.com/tschaub/pl-pages/pull/368) for more information.
+### NuxtJS
+
+Modify `nuxt.config.js` to include the following config and build your Nuxt project using `generate` script.
+
+```js
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  router: { options: { hashMode: true } },
+  app: { baseURL: "./" }
+})
+```
+
+### ViteJS
+
+Set a `"base"` property in its `vite.config.js` with `./` or Add this line to the scripts in package.json and build your Vite project using this script.
+
+```shell
+"dragbuild" : "vite build --base ./"
+```
+
+Be sure to read the documentation for your particular build tool or framework to learn how to configure correct asset paths.
