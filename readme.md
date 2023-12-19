@@ -9,7 +9,9 @@ Publish files to a `pl-pages` or any other branch on [Protocol Land](http://prot
 npm install pl-pages --save-dev
 ```
 
-This module requires Git >= 1.9 and Node > 16.
+Please install the Protocol Land remote helper for this package to work properly. [protocol-land-remote-helper](https://github.com/labscommunity/protocol-land-remote-helper)
+
+This module requires Git >= 1.9, Node > 16 and package [protocol-land-remote-helper](https://github.com/labscommunity/protocol-land-remote-helper).
 
 ## Basic Usage
 
