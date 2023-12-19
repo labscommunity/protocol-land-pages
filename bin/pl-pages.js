@@ -22,6 +22,8 @@ function publish(dist, config) {
 function main(args) {
   return Promise.resolve().then(() => {
     const program = new Command()
+      .name(pkg.name)
+      .description(pkg.description)
       .version(pkg.version)
       .requiredOption(
         '-d, --dist <dist>',

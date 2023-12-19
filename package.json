@@ -1,11 +1,11 @@
 {
   "name": "pl-pages",
   "version": "0.1.1",
-  "description": "Publish to a pl-pages or any other branch on Protocol Land",
+  "description": "Publish files to a `pl-pages` or any other branch on Protocol.Land and deploy the app to Arweave",
   "keywords": [
     "git",
     "pl-pages",
-    "github"
+    "protocol land"
   ],
   "author": "pawanpaudel93",
   "license": "MIT",

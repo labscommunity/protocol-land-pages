@@ -1,17 +1,29 @@
 
 # pl-pages
 
-Publish files to a `pl-pages` or any other branch on [Protocol Land](http://protocol.land/).
+Publish files to a `pl-pages` or any other branch on [Protocol Land](http://protocol.land/) and deploy the app to [Arweave](https://www.arweave.org/).
 
 ## Getting Started
+
+Install `pl-pages` as a dev dependency using one of your preferred package manager. And, also install the [Protocol Land remote helper](https://github.com/labscommunity/protocol-land-remote-helper) for this package to work properly.
 
 ```shell
 npm install pl-pages --save-dev
 ```
 
-Please install the Protocol Land remote helper for this package to work properly. [protocol-land-remote-helper](https://github.com/labscommunity/protocol-land-remote-helper)
+```shell
+yarn add pl-pages --dev
+```
 
-This module requires Git >= 1.9, Node > 16 and package [protocol-land-remote-helper](https://github.com/labscommunity/protocol-land-remote-helper).
+```shell
+pnpm add pl-pages --save-dev
+```
+
+```shell
+bun install pl-pages --dev
+```
+
+This module requires Git >= 1.9, Node >= 16 and package [protocol-land-remote-helper](https://github.com/labscommunity/protocol-land-remote-helper).
 
 ## Basic Usage
 
@@ -331,10 +343,39 @@ plpages.publish('dist', {
 
 Installing the package creates a `pl-pages` command line utility.  Run `pl-pages --help` to see a list of supported options.
 
+```shell
+Usage: pl-pages [options]
+
+Publish files to a `pl-pages` or any other branch on Protocol.Land and deploy the app to Arweave.
+
+Options:
+  -V, --version            output the version number
+  -d, --dist <dist>        Base directory for all source files
+  -s, --src <src>          Pattern used to select which files to publish (default: "**/*")
+  -b, --branch <branch>    Name of the branch you are pushing to (default: "pl-pages")
+  -e, --dest <dest>        Target directory within the destination branch (relative to the root) (default: ".")
+  -a, --add                Only add, and never remove existing files
+  -x, --silent             Do not output the repository url
+  -m, --message <message>  commit message (default: "Updates")
+  -g, --tag <tag>          add tag to commit
+  --git <git>              Path to git executable (default: "git")
+  -t, --dotfiles           Include dotfiles
+  -r, --repo <repo>        URL of the repository you are pushing to
+  -p, --depth <depth>      depth for clone (default: 1)
+  -o, --remote <name>      The name of the remote (default: "origin")
+  -u, --user <address>     The name and email of the user (defaults to the git config).  Format is "Your Name <email@example.com>".
+  -v, --remove <pattern>   Remove files that match the given pattern (ignored if used together with --add). (default: ".")
+  -n, --no-push            Commit only (with no push)
+  -f, --no-history         Push force new commit without parent history
+  --before-add <file>      Execute the function exported by <file> before "git add"
+  -h, --help               display help for command
+```
+
 With a local install of `pl-pages`, you can set up a package script with something like the following:
 
 ```shell
 "scripts": {
+  "predeploy": "npm run build",
   "deploy": "pl-pages -d dist"
 }
 ```
@@ -377,17 +418,26 @@ The `pl-pages` module writes temporary files to a `node_modules/.cache/pl-pages`
 
 If `pl-pages` fails, you may find that you need to manually clean up the cache directory.  To remove the cache directory, run `node_modules/pl-pages/bin/pl-pages-clean` or remove `node_modules/.cache/pl-pages`.
 
-## Build And Deployment Notes
+## Build And Deployment Guide
 
-> Recommended: Use HashRouter for apps deploying to PL Pages.
+> Recommended: Use HashRouter for apps deploying using PL Pages to Arweave.
 
-To reference the built assets are referenced correctly in the final compiled HTML, please follow this guide for different frameworks and libraries.
+Please follow this guide for different frameworks and libraries to reference the built assets correctly in the final compiled HTML.
 
 ### ReactJS
 >
 > Note: Use HashRouter from react-router-dom in React apps.
 
-Set a `"homepage"` property in the `package.json` to `./` or Add this line to the scripts in package.json and build your React project using this script.
+Set a `"homepage"` property in the `package.json` to `./`
+
+```js
+{
+  homepage: "./"
+  // other properties
+}
+```
+
+Or, add this line to the scripts in package.json and build your React project using this script.
 
 ```shell
 "dragbuild": "PUBLIC_URL=./ react-scripts build"
@@ -399,7 +449,7 @@ Learn about it [here](https://nextjs.org/docs/pages/building-your-application/de
 
 If you are having problems regarding images in Next.js HTML export, see [here](https://stackoverflow.com/questions/65487914/error-image-optimization-using-next-js-default-loader-is-not-compatible-with-n).
 
-Add the configuration to next.config.js and build the project to get an `out` folder which contains the HTML/CSS/JS assets for your application.
+Add the configuration to `next.config.js` and build the project to get an `out` folder which contains the HTML/CSS/JS assets for your application.
 
 ```js
 /**
@@ -435,7 +485,18 @@ export default defineNuxtConfig({
 
 ### ViteJS
 
-Set a `"base"` property in its `vite.config.js` with `./` or Add this line to the scripts in package.json and build your Vite project using this script.
+Set a `"base"` property in its `vite.config.js` with `./`.
+
+```js
+export default defineConfig({
+  // other configuration
+  base: "./"
+  // ...
+})
+
+```
+
+Or, add this line to the scripts in package.json and build your Vite project using this script.
 
 ```shell
 "dragbuild" : "vite build --base ./"
