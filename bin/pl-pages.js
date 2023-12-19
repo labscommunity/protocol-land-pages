@@ -138,13 +138,8 @@ function main(args) {
 
 if (require.main === module) {
   main(process.argv)
-    .then((txId) => {
+    .then(() => {
       process.stdout.write('Deployed\n');
-      if (txId && typeof txId === 'string') {
-        process.stdout.write(
-          `Deployment Link: https://ar-io.net/${deployment.txId}\n`
-        );
-      }
     })
     .catch((err) => {
       process.stderr.write(`${err.stack}\n`, () => process.exit(1));
