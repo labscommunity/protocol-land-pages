@@ -5,6 +5,7 @@ const {Command} = require('commander');
 const path = require('path');
 const pkg = require('../package.json');
 const addr = require('email-addresses');
+const {log} = require('../lib/common.js');
 
 function publish(dist, config) {
   return new Promise((resolve, reject) => {
@@ -142,7 +143,8 @@ if (require.main === module) {
       process.stdout.write('Deployed\n');
     })
     .catch((err) => {
-      process.stderr.write(`${err.stack}\n`, () => process.exit(1));
+      log(err.message, {color: 'red'});
+      process.exit(1);
     });
 }
 
