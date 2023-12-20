@@ -1,6 +1,6 @@
 {
   "name": "pl-pages",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Publish files to a `pl-pages` or any other branch on Protocol.Land and deploy the app to Arweave",
   "keywords": [
     "git",
