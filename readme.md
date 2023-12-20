@@ -426,7 +426,7 @@ Please follow this guide for different frameworks and libraries to reference the
 
 ### ReactJS
 >
-> Note: Use HashRouter from react-router-dom in React apps.
+> **Note:** Use HashRouter from react-router-dom in React apps.
 
 Set a `"homepage"` property in the `package.json` to `./`
 
@@ -440,7 +440,7 @@ Set a `"homepage"` property in the `package.json` to `./`
 Or, add this line to the scripts in package.json and build your React project using this script.
 
 ```shell
-"dragbuild": "PUBLIC_URL=./ react-scripts build"
+"plbuild": "PUBLIC_URL=./ react-scripts build"
 ```
 
 ### NextJS (Static Export)
@@ -462,6 +462,8 @@ const nextConfig = {
 
 module.exports = nextConfig
 ```
+
+> **Note:** NextJS doesn't have a hash router and also dynamic routes are not supported when deployed. Also, for NextJS app to work properly, you need an [ArNS](https://arns.app/) domain.
 
 ### VueJS
 
@@ -499,7 +501,7 @@ export default defineConfig({
 Or, add this line to the scripts in package.json and build your Vite project using this script.
 
 ```shell
-"dragbuild" : "vite build --base ./"
+"plbuild" : "vite build --base ./"
 ```
 
 Be sure to read the documentation for your particular build tool or framework to learn how to configure correct asset paths.
