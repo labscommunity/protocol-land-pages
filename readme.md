@@ -420,7 +420,7 @@ If `pl-pages` fails, you may find that you need to manually clean up the cache d
 
 ## Build And Deployment Guide
 
-> Recommended: Use HashRouter for apps deploying using PL Pages to Arweave.
+> **Recommended:** Use HashRouter for apps deploying using PL Pages to Arweave.
 
 Please follow this guide for different frameworks and libraries to reference the built assets correctly in the final compiled HTML.
 
@@ -456,8 +456,8 @@ Add the configuration to `next.config.js` and build the project to get an `out` 
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  output: 'export',
-  assetPrefix: "./",
+  output: 'export'
+  // other configuration
 }
 
 module.exports = nextConfig
@@ -482,6 +482,7 @@ Modify `nuxt.config.js` to include the following config and build your Nuxt proj
 export default defineNuxtConfig({
   router: { options: { hashMode: true } },
   app: { baseURL: "./" }
+  // other configuration
 })
 ```
 
@@ -491,9 +492,8 @@ Set a `"base"` property in its `vite.config.js` with `./`.
 
 ```js
 export default defineConfig({
-  // other configuration
   base: "./"
-  // ...
+  // other configuration
 })
 
 ```
