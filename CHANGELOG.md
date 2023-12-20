@@ -1,5 +1,11 @@
 # pl-pages
 
+## 0.1.2
+
+### Patch Changes
+
+- [#10](https://github.com/pawanpaudel93/pl-pages/pull/10) [`6072149`](https://github.com/pawanpaudel93/pl-pages/commit/6072149cb9f14306e798a0f8ee095f62389a0d19) Thanks [@pawanpaudel93](https://github.com/pawanpaudel93)! - Add no deploy option to skip deployment
+
 ## 0.1.1
 
 ### Patch Changes
