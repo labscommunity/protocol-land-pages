@@ -264,12 +264,25 @@ plpages.publish('dist', {
 * type: `boolean`
 * default: `true`
 
-Push branch to remote.  To commit only (with no push) set to `false`.
+Push branch to remote. To commit only (with no push) set to `false`.
 
 Example use of the `push` option:
 
 ```js
 plpages.publish('dist', {push: false}, callback);
+```
+
+#### <a id="optionsdeploy">options.deploy</a>
+
+* type: `boolean`
+* default: `true`
+
+Deploy branch to Arweave as static app. To push only (with no deploy) set to `false`.
+
+Example use of the `deploy` option:
+
+```js
+plpages.publish('dist', {deploy: false}, callback);
 ```
 
 #### <a id="optionshistory">options.history</a>
@@ -366,6 +379,7 @@ Options:
   -u, --user <address>     The name and email of the user (defaults to the git config).  Format is "Your Name <email@example.com>".
   -v, --remove <pattern>   Remove files that match the given pattern (ignored if used together with --add). (default: ".")
   -n, --no-push            Commit only (with no push)
+  -nd, --no-deploy         Don't deploy to Arweave as static app
   -f, --no-history         Push force new commit without parent history
   --before-add <file>      Execute the function exported by <file> before "git add"
   -h, --help               display help for command

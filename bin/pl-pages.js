@@ -72,6 +72,7 @@ function main(args) {
         plpages.defaults.remove
       )
       .option('-n, --no-push', 'Commit only (with no push)')
+      .option('-nd, --no-deploy', "Don't deploy to Arweave as static app")
       .option(
         '-f, --no-history',
         'Push force new commit without parent history'
@@ -130,6 +131,7 @@ function main(args) {
       remove: options.remove,
       remote: options.remote,
       push: !!options.push,
+      deploy: !!options.deploy,
       history: !!options.history,
       user: user,
       beforeAdd: beforeAdd,
@@ -142,7 +144,7 @@ function main(args) {
 if (require.main === module) {
   main(process.argv)
     .then(() => {
-      process.stdout.write('Deployed\n');
+      // process.stdout.write('Deployed\n');
     })
     .catch((err) => {
       log(err.message, {color: 'red'});
