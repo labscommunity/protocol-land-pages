@@ -1,5 +1,5 @@
 {
-  "name": "pl-pages",
+  "name": "@protocol.land/pages",
   "version": "0.1.2",
   "description": "Publish files to a `pl-pages` or any other branch on Protocol.Land and deploy the app to Arweave",
   "keywords": [
@@ -9,13 +9,13 @@
   ],
   "author": "pawanpaudel93",
   "license": "MIT",
-  "homepage": "https://github.com/pawanpaudel93/pl-pages",
+  "homepage": "https://github.com/labscommunity/pl-pages",
   "repository": {
     "type": "git",
-    "url": "git://github.com/pawanpaudel93/pl-pages.git"
+    "url": "git://github.com/labscommunity/pl-pages.git"
   },
   "bugs": {
-    "url": "https://github.com/pawanpaudel93/pl-pages/issues"
+    "url": "https://github.com/labscommunity/pl-pages/issues"
   },
   "main": "lib/index.js",
   "scripts": {

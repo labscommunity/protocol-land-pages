@@ -8,19 +8,19 @@ Publish files to a `pl-pages` or any other branch on [Protocol Land](http://prot
 Install `pl-pages` as a dev dependency using one of your preferred package manager. And, also install the [Protocol Land remote helper](https://github.com/labscommunity/protocol-land-remote-helper) for this package to work properly.
 
 ```shell
-npm install pl-pages --save-dev
+npm install @protocol.land/pages --save-dev
 ```
 
 ```shell
-yarn add pl-pages --dev
+yarn add @protocol.land/pages --dev
 ```
 
 ```shell
-pnpm add pl-pages --save-dev
+pnpm add @protocol.land/pages --save-dev
 ```
 
 ```shell
-bun install pl-pages --dev
+bun install @protocol.land/pages --dev
 ```
 
 This module requires Git >= 1.9, Node >= 16 and package [protocol-land-remote-helper](https://github.com/labscommunity/protocol-land-remote-helper).
@@ -28,7 +28,7 @@ This module requires Git >= 1.9, Node >= 16 and package [protocol-land-remote-he
 ## Basic Usage
 
 ```js
-var plpages = require('pl-pages');
+var plpages = require('@protocol.land/pages');
 
 plpages.publish('dist', function(err) {});
 ```
